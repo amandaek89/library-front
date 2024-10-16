@@ -1,37 +1,51 @@
 <template>
-  <div>
-    <h1>Lista över böcker</h1>
-    <ul>
-      <li v-for="book in books" :key="book.id">
-        <strong>Titel:</strong> {{ book.title }} <br />
-        <strong>ISBN:</strong> {{ book.isbn }} <br />
-        <strong>Författare:</strong> {{ book.author.name }} (Ålder: {{ book.author.age }}) <br />
-        <hr />
-      </li>
-    </ul>
+  <div class = "container">
+    <h1 class="text-center"> AuthorsList</h1>
+    <table class="table table-striped">
+      <thead>
+      <th> Book Id </th>
+      <th> Book Title </th>
+      <th> Book  isbn </th>
+      <th> Book  Author </th>
+      </thead>
+      <tbody>
+      <tr v-for = "book in books" v-bind:key = "book.id">
+        <td> {{book.id }}</td>
+        <td> {{book.title }}</td>
+        <td> {{book.isbn }}</td>
+        <td> {{book.author }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+
   </div>
+
+
 </template>
 
+
 <script>
-import { getAllBooks } from '@/api.js';
+import BookService from '../services/BookService'
+
 
 export default {
-  data() {
+  name: 'BookList',
+  data(){
     return {
-      books: [],
-    };
-  },
-  created() {
-    this.fetchBooks();
+      books : []
+    }
   },
   methods: {
-    async fetchBooks() {
-      try {
-        this.books = await getAllBooks();
-      } catch (error) {
-        console.error('Det gick inte att hämta böcker:', error);
-      }
-    },
+    getBooks(){
+      BookService.getBooks().then((response) =>{
+        this.books = response.data;
+      });
+    }
   },
-};
+  created() {
+    this.getBooks()
+  }
+
+}
 </script>
