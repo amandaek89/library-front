@@ -10,9 +10,14 @@
 </template>
 
 <script>
+import AuthorList from './components/AuthorList.vue'
+
 export default {
   name: 'App',
-};
+  components: {
+    AuthorList
+  }
+}
 </script>
 
 <style>

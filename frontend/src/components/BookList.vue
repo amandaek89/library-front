@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { getAllBooks } from '../api.js';
+import { getAllBooks } from '@/api.js';
 
 export default {
   data() {

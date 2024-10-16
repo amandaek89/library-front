@@ -1,37 +1,49 @@
 <template>
-  <div>
-    <h1>Lista över författare</h1>
-    <ul>
-      <li v-for="author in authors" :key="author.id">
-        <strong>Namn:</strong> {{ author.name }} <br />
-        <strong>Ålder:</strong> {{ author.age }} <br />
-        <hr />
-      </li>
-    </ul>
+  <div class = "container">
+    <h1 class="text-center"> AuthorsList</h1>
+    <table class="table table-striped">
+      <thead>
+      <th> Author Id </th>
+      <th> Author Name </th>
+      <th> Author Age </th>
+      </thead>
+      <tbody>
+      <tr v-for = "author in authors" v-bind:key = "author.id">
+        <td> {{author.id }}</td>
+        <td> {{author.name }}</td>
+        <td> {{author.age }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+
   </div>
+
+
 </template>
 
+
 <script>
-import { getAllAuthors } from '../api.js';
+import AuthorService from '../services/AuthorService'
+
 
 export default {
-  data() {
+  name: 'AuthorList',
+  data(){
     return {
-      authors: [],
-    };
-  },
-  created() {
-    this.fetchAuthors();
+      authors : []
+    }
   },
   methods: {
-    async fetchAuthors() {
-      try {
-        this.authors = await getAllAuthors();
-      } catch (error) {
-        console.error('Det gick inte att hämta författare:', error);
-      }
-    },
+    getAuthors(){
+      AuthorService.getAuthors().then((response) =>{
+        this.authors = response.data;
+      });
+    }
   },
-};
-</script>
+  created() {
+    this.getAuthors()
+  }
 
+}
+</script>
