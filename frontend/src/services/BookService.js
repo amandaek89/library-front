@@ -13,6 +13,11 @@ class BookService{
     getBookById(id) {
         return axios.get(`${BOOK_API_BASE_URL}/${id}`)
     }
+
+    // Ny metod för att skapa en ny bok
+    addBook(book) {
+        return axios.post(BOOK_API_BASE_URL, book)
+    }
 }
 
 

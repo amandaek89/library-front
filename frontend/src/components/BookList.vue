@@ -1,22 +1,9 @@
 <template>
   <div class = "container">
-    <h1 class="text-center"> BookList</h1>
-
-    <!-- Input och knapp för att söka efter en specifik bok -->
-    <div class="form-group">
-      <label for="bookId">Find Book by ID:</label>
-      <input
-          v-model="bookId"
-          type="number"
-          class="form-control"
-          id="bookId"
-          placeholder="Enter book ID"
-      />
-      <button class="btn btn-primary mt-2" @click="getBookById">Find Book</button>
-    </div>
+    <h1 class="text-center"> Book List</h1>
 
     <!-- Tabell för att visa alla böcker -->
-    <table class="table table-striped">
+    <table class="table table-striped mt-2">
       <thead>
       <th> Book Id </th>
       <th> Book Title </th>
@@ -64,13 +51,6 @@ export default {
         this.books = response.data;
       });
     },
-
-    // Metod för att hämta en specifik bok baserat på ID
-    getBookById() {
-      BookService.getBookById(this.bookId).then((response) => {
-        this.selectedBook = response.data;
-      });
-    }
   },
   created() {
     this.getBooks()
